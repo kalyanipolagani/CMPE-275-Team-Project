@@ -41,8 +41,8 @@ public class User {
 	private String checkoutDate;
 	@Column(name = "Due_Date")
 	private String dueDate;
-	@Column(name = "TYPE")
-	private String usertype;
+//	@Column(name = "TYPE")
+//	private String usertype;
 
 	public String getCheckoutDate() {
 		return checkoutDate;
@@ -128,16 +128,16 @@ public class User {
 		this.userid = userid;
 	}
 
-	public String getUsertype() {
-		return usertype;
-	}
-
-	public void setUsertype(String usertype) {
-		this.usertype = usertype;
-	}
+//	public String getUsertype() {
+//		return usertype;
+//	}
+//
+//	public void setUsertype(String usertype) {
+//		this.usertype = usertype;
+//	}
 
 	public User(String userid, String email, String firstName, String lastName, String password, String univid,
-			String uniquecode, String checkoutDate, String dueDate, String usertype, List<Book> books) {
+			String uniquecode, String checkoutDate, String dueDate, List<Book> books) {
 		super();
 		this.userid = userid;
 		this.email = email;
@@ -149,7 +149,7 @@ public class User {
 		this.checkoutDate = checkoutDate;
 		this.dueDate = dueDate;
 		this.books = books;
-		this.usertype = usertype;
+	//	this.usertype = usertype;
 	}
 
 	public User() {

@@ -14,7 +14,7 @@ import org.json.simple.*;
 public class CreateUser {
 
 	public void insert(String firstName, String lastName, String email, String password, String univid,
-			String uniquecode, String usertype) {
+			String uniquecode) {
 		// TODO Auto-generated method stub
 		// entitymanager instance associated with persistence context
 		// This method is called by User Controller for inserting User Details
@@ -33,7 +33,7 @@ public class CreateUser {
 		user.setPassword(password);
 		user.setUnivid(univid);
 		user.setUniquecode(uniquecode);
-		user.setUsertype(usertype);
+	//	user.setUsertype(usertype);
 		System.out.println("cufn" + email);
 
 		entitymanager.persist(user);

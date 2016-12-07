@@ -87,7 +87,7 @@ public class UsersController {
 			user.setPassword(password);
 			user.setUnivid(univ);
 			user.setUniquecode(tokenID.substring(0, 6));
-			user.setUsertype(type);
+		//	user.setUsertype(type);
 			System.out.println("tokenID" + tokenID);
 			ActivationEmail.emailRecommendTrigger(fName + " " + lName, email, user.getUniquecode());
 			return "/continue";
@@ -104,7 +104,7 @@ public class UsersController {
 		if (action != null && !action.equals("") && action.equals("Submit")) {
 			if (token != null && token.equals(user.getUniquecode())) {
 				cu.insert(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(),
-						user.getUnivid(), user.getUniquecode(), user.getUsertype());
+						user.getUnivid(), user.getUniquecode());
 				ActivationEmail.emailRecommendTrigger(user.getFirstName() + " " + user.getLastName(), user.getEmail(),
 						"You Have Succesfully Created an Account");
 				return "/login";
