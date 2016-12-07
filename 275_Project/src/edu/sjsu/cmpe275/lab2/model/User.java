@@ -23,7 +23,7 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "USERID")
+	@Column(name = "ID")
 	private String userid;
 	@Column(name = "EMAIL")
 	private String email;
@@ -41,6 +41,8 @@ public class User {
 	private String checkoutDate;
 	@Column(name = "Due_Date")
 	private String dueDate;
+/*	@ManyToMany(mappedBy = "user", fetch = FetchType.LAZY)
+*/	private List<Book> books;
 //	@Column(name = "TYPE")
 //	private String usertype;
 
@@ -59,10 +61,6 @@ public class User {
 	public void setDueDate(String dueDate) {
 		this.dueDate = dueDate;
 	}
-
-	@ManyToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	@JsonBackReference
-	private List<Book> books;
 
 	public String getEmail() {
 		return email;

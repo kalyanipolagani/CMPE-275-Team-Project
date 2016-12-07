@@ -51,6 +51,9 @@ public ModelAndView createUser(){
 public ModelAndView addBookstoPatron(@RequestParam("userid") String userid,
 									  @RequestParam("bookid") String bookid){
 	BookCheckout bC = new BookCheckout();
+	System.out.println("addBookstoPatron"+bookid);
+	bC.addBooksToPatron(userid, bookid);
+	User user = bC.getUserById(userid);
 	//String condition = bC.addBooksToPatron(userid, bookid);
 	/*if (condition == "bookLimitReached")
 	{
@@ -69,6 +72,7 @@ public ModelAndView addBookstoPatron(@RequestParam("userid") String userid,
 	else
 	{*/
 		ModelAndView model = new ModelAndView("searchBook");
+		model.addObject(user);
 		return model;
 	/*}*/
 	}
@@ -152,23 +156,26 @@ public String deleteBook(@PathVariable("bookid")  String bookid){
 @RequestMapping(value = "book/searchBook", method = RequestMethod.GET )
 public ModelAndView searchBook(){
 	ModelAndView model = new ModelAndView("searchBook");
+	System.out.println("searchbook get");
 	return model;
 	}
 
 
 
 @RequestMapping(value = "book/searchBook", method = RequestMethod.POST )
-public ModelAndView searchBooks(@RequestParam("title")String title)	
+public ModelAndView searchBooks(@RequestParam("title")String title,
+								@RequestParam("userid")String userid)	
 {		System.out.println("In cintroller " +title);
 		Book newbook =new Book();
 		newbook=b.getBookByTitle(title);
-		
 		System.out.println("In controller Nwbook " +newbook.getTitle());
 		
 
 		ModelAndView model = new ModelAndView("addBookToCart");
 
 		model.addObject("newbook", newbook);
+		model.addObject("userid",userid);
+		System.out.println("i am booksearch post"+userid);
 		System.out.println("In cintroller 22 Nwbook " +newbook.getPublisher());
 		return model;
 		

@@ -72,10 +72,9 @@
 							<label for="keywords">Keyword </label> <input type="text"
 							class="form-control" id="keywords" name="keywords" value ="${newbook.keywords}">
 						</div>
+						<input type = "hidden" id="userid" name = "userid" value = "${userid}">
 						<c:if test="${newbook.copies != 0}">
  						<button type="submit" value = "addBook">Add Book</button>
- 						<input type = "hidden" id="bookid" name = "bookid" value ="${newbook.bookid}">
- 						<input type = "hidden" id="userid" name = "userid" value = "${user.userid}">
  						</c:if>
  						<button type="submit" value = "back">Back</button>
 					</form>

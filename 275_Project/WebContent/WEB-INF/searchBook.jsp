@@ -20,7 +20,7 @@
 	<div class="container-fluid">
 		<div class="jumbotron">
 			<h2>Search a Book</h2>
-			<input type="text" name="id" value="${user.userid}" />	
+				
 		</div>
 	</div>
 	<div class="container-fluid" id="register">
@@ -33,7 +33,7 @@
   							<label for="title">Enter the title of the Book</label>
   							<input type="text" class="form-control" id="title" name="title">
 						</div>
-						
+						<input type="text" id = "userid" name="userid" value="${user.userid}" />
 						<button type="submit" class="btn btn-default">Search</button>
 					</form>
 				</div>

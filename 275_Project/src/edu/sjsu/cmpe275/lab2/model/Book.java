@@ -21,7 +21,7 @@ import javax.persistence.JoinColumn;
 public class Book {
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "BOOKID")
+	@Column(name = "ID")
 	private String bookid;
 	@Column(name = "AUTHOR")
 	private String author;
@@ -42,11 +42,11 @@ public class Book {
 	@Column(name = "KEYWORDS")
 	private String keywords;
 	
-	@ManyToMany(cascade =CascadeType.ALL,fetch=FetchType.LAZY)
+	/*@ManyToMany(cascade =CascadeType.ALL,fetch=FetchType.LAZY)
     @JoinTable(
         name="Book_User",
         joinColumns=@JoinColumn(name="BOOK_ID", referencedColumnName="BOOKID"),
-        inverseJoinColumns=@JoinColumn(name="USER_ID", referencedColumnName="EMAIL"))
+        inverseJoinColumns=@JoinColumn(name="USER_ID", referencedColumnName="USERID"))*/
     private List<User> user;
 
 	public String getBookid() {

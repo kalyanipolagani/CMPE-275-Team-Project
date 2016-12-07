@@ -1,4 +1,4 @@
-package edu.sjsu.cmpe275.lab2.controller;
+/*package edu.sjsu.cmpe275.lab2.controller;
 
 
 import java.io.IOException;
@@ -38,17 +38,17 @@ public class BookController {
 	List<String> listOfBooksForCurrentCheckout = new ArrayList<String>();
 	
 	
-/*@RequestMapping(value = "/book", method = RequestMethod.GET)
+@RequestMapping(value = "/book", method = RequestMethod.GET)
 public ModelAndView bb()
 {
 	ModelAndView model = new ModelAndView("bookCheckoutDetails");
 	return model;
 }
-*/
 
 
 
-/*@RequestMapping(value = "books/{bookid}", method = RequestMethod.GET )
+
+@RequestMapping(value = "books/{bookid}", method = RequestMethod.GET )
 public ModelAndView getBookDetails(@PathVariable("bookid")String bookid)
 {
 	BookCheckout bC = new BookCheckout();
@@ -57,7 +57,7 @@ public ModelAndView getBookDetails(@PathVariable("bookid")String bookid)
 	model.addObject(bDetails);
 	return model;
 }
-*/
+
 	
 	
 @RequestMapping(value = "/addBooks", method = RequestMethod.POST)
@@ -79,7 +79,7 @@ public ModelAndView addBooks(@RequestParam("bookid")String bookid)
 	
 }
 
-/*@RequestMapping(value = "/275_lab2/bookCheckout", method = RequestMethod.POST)
+@RequestMapping(value = "/275_lab2/bookCheckout", method = RequestMethod.POST)
 public ModelAndView bookCheckout()
 {
 	//listOfBooksForCurrentCheckout = null;
@@ -89,12 +89,12 @@ public ModelAndView bookCheckout()
 	model.addObject("chekoutResult",allBooksInADay);
 	return model;
 	
-}*/
+}
 
 
 
 
-	/*Creates user with GET Call
+	Creates user with GET Call
 	CreateUser cU = new CreateUser();
 	@RequestMapping(value = "/user", method = RequestMethod.GET )
 	public ModelAndView createUser(){
@@ -225,4 +225,4 @@ public ModelAndView bookCheckout()
 		cU.deleteObjectById(userId);
 		return "user";
 	}
-*/}
+}*/
