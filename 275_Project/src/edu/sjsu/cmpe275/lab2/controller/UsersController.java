@@ -65,7 +65,7 @@ public class UsersController {
 		if (user != null && user.getEmail().equals(email) && user.getPassword().equals(password)) {
 			Cookie loginCookie = new Cookie("userid",user.getUserid());
 				//setting cookie to expiry in 30 mins
-				ModelAndView model = new ModelAndView("patronHomepage");// go to search														// page
+				ModelAndView model = new ModelAndView("searchBook");// go to search														// page
 				loginCookie.setMaxAge(30*60);
 				response.addCookie(loginCookie);
 				

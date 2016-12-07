@@ -71,7 +71,57 @@ public class BookCheckout {
 		return null;
 	}
 
-	public String addBooks(List<String> listOfBooksForCurrentCheckout) {
+	public String addBooksToPatron(String userid, String bookid) {
+		
+		
+		// TODO Auto-generated method stub
+		
+		
+		String dueDateConversion = null;
+		//User user = new User(); //replace with session
+		LocalDateTime timePoint = LocalDateTime.now();
+		LocalDate theDate = timePoint.toLocalDate();
+		String currentDate = theDate.toString();
+		
+		EntityManagerFactory emfactory =  Persistence.createEntityManagerFactory( "275_lab2" );
+		EntityManager entityManager = emfactory.createEntityManager( );
+		entityManager.getTransaction( ).begin( );
+		User user = entityManager.find(User.class, userid);
+		/*if(user.getBooks().size()!=){
+			
+		}*/
+		//int tolalNumberOfBooksUserHave = user.getBooks().size();
+		//need to check the user id in the query
+		String numberOfBooksUserCheckedoutInADay =  entityManager.createQuery("SELECT COUNT(u.checkoutDate) FROM User u WHERE u.checkoutDate ='"+ currentDate +"'"+" and u.userid ='"+ userid +"'"+" GROUP BY u.checkoutDate").getSingleResult().toString();
+		entityManager.getTransaction( ).commit( );
+	    entityManager.close( );
+	    emfactory.close( );
+		/*if(tolalNumberOfBooksUserHave == 10)
+		{
+			return "bookLimitReached";
+			//return ("you cannot checkout any more books, until you return atleast one book back to the library");
+		}*/
+		/*else if(numberOfBooksUserCheckedoutInADay == "5")
+		{
+			return "bookLimitReachedForTheDay";
+			//return ("you cannot checkout any more books for today. Please do checkout tomorrow");
+		}
+		else
+		{*/
+			//get the object of the user from userid and then do the following
+			//add the book id to the user<book> list
+			user.setCheckoutDate(currentDate);
+			LocalDate dueDate = timePoint.toLocalDate().plusDays(30);
+			dueDateConversion = dueDate.toString();
+			user.setDueDate(dueDateConversion);
+			return null;
+		/*}*/
+		/*return ("Book Checkedout. your due date is" + dueDateConversion +" ");*/ //imp
+		
+	}
+
+
+	/*public String addBooks(List<String> listOfBooksForCurrentCheckout) {
 		// TODO Auto-generated method stub
 		String dueDateConversion = null;
 		LocalDateTime timePoint = LocalDateTime.now();
@@ -87,6 +137,6 @@ public class BookCheckout {
 		sB.append(dueDateConversion);
 		
 		return sB.toString();
-	}
+	}*/
 
 }

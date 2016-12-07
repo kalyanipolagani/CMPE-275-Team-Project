@@ -79,7 +79,7 @@ public ModelAndView addBooks(@RequestParam("bookid")String bookid)
 	
 }
 
-@RequestMapping(value = "/275_lab2/bookCheckout", method = RequestMethod.POST)
+/*@RequestMapping(value = "/275_lab2/bookCheckout", method = RequestMethod.POST)
 public ModelAndView bookCheckout()
 {
 	//listOfBooksForCurrentCheckout = null;
@@ -89,7 +89,7 @@ public ModelAndView bookCheckout()
 	model.addObject("chekoutResult",allBooksInADay);
 	return model;
 	
-}
+}*/
 
 
 

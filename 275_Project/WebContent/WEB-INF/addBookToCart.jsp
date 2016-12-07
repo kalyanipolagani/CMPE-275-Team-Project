@@ -30,7 +30,7 @@
 			<div class="col-md-3"></div>
 			<div class="col-md-6">
 				<div class="span8">
-					<form action="#" method="post">
+					<form action="/275_lab2/book/addBookstoPatron" method="post">
 						<div class="form-group" >
 							<label for="bookid">Book ID</label>
 							 <input type="text" class="form-control" id="bookid" name="bookid" value ="${newbook.bookid}">
@@ -72,7 +72,12 @@
 							<label for="keywords">Keyword </label> <input type="text"
 							class="form-control" id="keywords" name="keywords" value ="${newbook.keywords}">
 						</div>
-						<button type="submit" class="btn btn-default">Add to Cart</button>
+						<c:if test="${newbook.copies != 0}">
+ 						<button type="submit" value = "addBook">Add Book</button>
+ 						<input type = "hidden" id="bookid" name = "bookid" value ="${newbook.bookid}">
+ 						<input type = "hidden" id="userid" name = "userid" value = "${user.userid}">
+ 						</c:if>
+ 						<button type="submit" value = "back">Back</button>
 					</form>
 				</div>
 			</div>

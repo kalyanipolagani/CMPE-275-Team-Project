@@ -46,6 +46,32 @@ public ModelAndView createUser(){
 	ModelAndView model = new ModelAndView("addBook");
 	return model;
 }
+//Added
+@RequestMapping(value = "book/addBookstoPatron", method = RequestMethod.POST )
+public ModelAndView addBookstoPatron(@RequestParam("userid") String userid,
+									  @RequestParam("bookid") String bookid){
+	BookCheckout bC = new BookCheckout();
+	//String condition = bC.addBooksToPatron(userid, bookid);
+	/*if (condition == "bookLimitReached")
+	{
+		ModelAndView model = new ModelAndView("BLR");
+		String value = "Book Limit Reached";
+		model.addObject("limitReached", value);
+		return model;
+	}
+	else if(condition == "bookLimitReachedForTheDay")
+	{
+		ModelAndView model = new ModelAndView("BLR");
+		String value = "Book Limit Reached For The Day";
+		model.addObject("limitReached", value);
+		return model;
+	}
+	else
+	{*/
+		ModelAndView model = new ModelAndView("searchBook");
+		return model;
+	/*}*/
+	}
 
 BookDetails b = new BookDetails();
 @RequestMapping(value = "book/createBook", method = RequestMethod.POST )
