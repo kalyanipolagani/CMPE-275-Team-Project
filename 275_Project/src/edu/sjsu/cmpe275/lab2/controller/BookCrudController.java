@@ -2,6 +2,8 @@ package edu.sjsu.cmpe275.lab2.controller;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
@@ -23,6 +25,7 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 import edu.sjsu.cmpe275.lab2.dao.BookCheckout;
 import edu.sjsu.cmpe275.lab2.dao.BookDetails;
@@ -64,7 +67,7 @@ public String addBookDetails(@RequestParam("bookid")String bookid,
 	}	
 
 /*
- * //Get the User Details from Database
+ * //Get the Book Details from Database
  */
 @RequestMapping(value = "book/{bookid}", method = RequestMethod.GET )
 public ModelAndView updateBook(@PathVariable("bookid")String bookid,HttpServletResponse httpRes){	
@@ -117,7 +120,6 @@ public String deleteBook(@PathVariable("bookid")  String bookid){
 }
 
 
-
 /*
  * Search the Book details based on title
  */
@@ -127,17 +129,20 @@ public ModelAndView searchBook(){
 	return model;
 	}
 
-@RequestMapping(value = "book/searchBook/", method = RequestMethod.POST )
+
+
+@RequestMapping(value = "book/searchBook", method = RequestMethod.POST )
 public ModelAndView searchBooks(@RequestParam("title")String title)	
 {		System.out.println("In cintroller " +title);
 		Book newbook =new Book();
 		newbook=b.getBookByTitle(title);
 		
-		System.out.println("In cintroller Nwbook " +newbook.getTitle());
+		System.out.println("In controller Nwbook " +newbook.getTitle());
 		
+
 		ModelAndView model = new ModelAndView("addBookToCart");
-		
-		model.addObject(newbook);
+
+		model.addObject("newbook", newbook);
 		System.out.println("In cintroller 22 Nwbook " +newbook.getPublisher());
 		return model;
 		
@@ -145,3 +150,46 @@ public ModelAndView searchBooks(@RequestParam("title")String title)
 }
 }
 
+
+
+
+
+
+
+/*
+//System.out.println("printing our list of books"+ b.getAllBooks());
+//List<String> bookTitles = b.getAllBooks();
+//model.addObject("bookDetails", b);
+return model;
+}
+
+//@RequestMapping(value = "book/getBookTitles", method = RequestMethod.GET)
+//public @ResponseBody List<String> searchLastName(@RequestParam("term") String query) {
+//
+////List<Book> booksList = book.searchClient(new SearchClientEvent(query)).getClients();
+////List<String> lastnameList = new ArrayList<>();
+////System.out.println("Found clients size: " + clientsList.size());
+//List<String> bookList = new ArrayList<>();
+//
+//BookDetails newbook=new BookDetails();
+//bookList= newbook.getAllBookTitles();
+//String [] bookArr = new String[bookList.size()];
+//bookArr = bookList.toArray();
+//System.out.println("List of all books: "+bookList);
+//Collections.sort(bookArr);
+//return bookArr;
+//}
+//@RequestMapping(value = "book/getBookTitles", method = RequestMethod.GET,headers="Accept",produces = "application/json")
+public @ResponseBody String getBookTitles(@RequestParam("term") String query) throws JsonProcessingException {
+List<String> bookTitles = b.getAllBookTitles();
+
+//String [] bookArr = new String[bookTitles.size()];
+//bookArr = bookTitles.toArray(bookArr);
+
+//System.out.println("Converted booktitles"+bookArr);
+ObjectMapper mapper = new ObjectMapper();
+return mapper.writeValueAsString(bookTitles);
+//return bookArr;
+
+}
+*/

@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<title>User Update</title>
+	<title>Book Update/Delete</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<script
@@ -22,7 +22,7 @@ function deleteBook(){
 	
 $.ajax({
 	
-	url: '/275_lab2/book/${bookid}',
+	url: '/275_lab2/book/${newbook.bookid}',
     type: 'DELETE',
     success: function(result) {
     	window.location.href("/book/createBook");
@@ -35,7 +35,8 @@ $.ajax({
 <body>
 	<div class="container-fluid">
 		<div class="jumbotron">
-			<h2 id="title">Update User</h2>			
+			<h2 id="title">Book Update/Delete</h2>	
+			<input type="text" name="id" value="${user.userid}" />			
 		</div>
 	</div>
 	<div class="container-fluid" id="register">

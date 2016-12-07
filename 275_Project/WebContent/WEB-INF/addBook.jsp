@@ -25,9 +25,9 @@
 			<div class="col-md-6">
 				<div class="span8">
 					<form action="/275_lab2/book/createBook" method="post">
-						<div class="form-group" >
+						 <div class="form-group" >
 							<label for="bookid">Book ID</label> <input type="text"
-							class="form-control" id="bookid" name="bookid" placeholder="Book ID">
+							class="form-control" id="bookid" name="bookid" >
 						</div>
 						<div class="form-group" >
 							<label for="author">Author</label> <input type="Text"

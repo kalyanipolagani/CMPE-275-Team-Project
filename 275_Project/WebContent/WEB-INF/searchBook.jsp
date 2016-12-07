@@ -13,44 +13,14 @@
 
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script>
-  $( function() {
-    var availableTags = [
-      "ActionScript",
-      "AppleScript",
-      "abc",
-      "BASIC",
-      "C",
-      "C++",
-      "Clojure",
-      "COBOL",
-      "ColdFusion",
-      "Erlang",
-      "Fortran",
-      "Groovy",
-      "Haskell",
-      "Java",
-      "JavaScript",
-      "Lisp",
-      "Perl",
-      "PHP",
-      "Python",
-      "Ruby",
-      "Scala",
-      "Scheme"
-    ];
-    $( "#title" ).autocomplete({
-      source: availableTags
-    });
-  } );
-  </script>
+  
 </head>
 
 <body>
 	<div class="container-fluid">
 		<div class="jumbotron">
-			<h2>Search a Book</h2>	
-			<input type="text" name="id" value="${user.userid}" />			
+			<h2>Search a Book</h2>
+			<input type="text" name="id" value="${user.userid}" />	
 		</div>
 	</div>
 	<div class="container-fluid" id="register">
@@ -70,7 +40,7 @@
 			</div>
 		</div>
 	</div>
-
+	
 </body>
  
 </body>

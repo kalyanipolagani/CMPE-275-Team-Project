@@ -112,6 +112,28 @@ public class BookDetails {
 
 			}
 		
+		//Get all Books
+		public List<String> getAllBookTitles() {
+				System.out.println("In DAO Get all books ");  
+				EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "275_lab2" );
+			    EntityManager entitymanager = emfactory.createEntityManager( );
+			    entitymanager.getTransaction( ).begin( );
+			    Book book = new Book();
+			    
+				List<String> temp = entitymanager.createQuery("Select b.title from Book b").getResultList();
+				
+				System.out.println("Book list "+temp);
+                
+				//book = entitymanager.find(Book.class, temp);
+				if(temp==null)
+					return null;
+			    //entitymanager.persist( temp );
+			    //entitymanager.getTransaction( ).commit( );
+			    entitymanager.close( );
+			    emfactory.close( );
+			    return temp;
+
+			}
 		//Delete Book
 		public void deleteObjectById(String bookid) {
 			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "275_lab2" );
@@ -121,11 +143,12 @@ public class BookDetails {
 			Book book = new Book();
 			 
 			book = entitymanager.find(Book.class, bookid);
-			entitymanager.getTransaction().begin();
 			entitymanager.remove(book);
 			System.out.println("Current deleted Book :"+book.getBookid());  
 			entitymanager.getTransaction().commit();
 			entitymanager.close();
+			
+			
 			
 		}
 }
