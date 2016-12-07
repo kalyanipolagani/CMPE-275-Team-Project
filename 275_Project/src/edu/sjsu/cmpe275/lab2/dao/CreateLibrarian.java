@@ -13,9 +13,10 @@ import edu.sjsu.cmpe275.lab2.model.Librarian;
 
 import org.json.simple.*;
 
-public class CreateUser {
+public class CreateLibrarian {
 
-	public void insertUser(String firstName, String lastName, String email, String password, String univid,
+	
+	public void insertLibrarian(String firstName, String lastName, String email, String password, String univid,
 			String uniquecode) {
 		// TODO Auto-generated method stub
 		// entitymanager instance associated with persistence context
@@ -27,47 +28,47 @@ public class CreateUser {
 		entitymanager.getTransaction().begin();
 		System.out.println("cufn2c" + lastName);
 
-		User user = new User();
+		Librarian lib = new Librarian();
 
-		user.setFirstName(firstName);
-		user.setLastName(lastName);
-		user.setEmail(email);
-		user.setPassword(password);
-		user.setUnivid(univid);
-		user.setUniquecode(uniquecode);
+		lib.setFirstName(firstName);
+		lib.setLastName(lastName);
+		lib.setEmail(email);
+		lib.setPassword(password);
+		lib.setUnivid(univid);
+		lib.setUniquecode(uniquecode);
 
 		System.out.println("cufn" + email);
 
-		entitymanager.persist(user);
+		entitymanager.persist(lib);
 		entitymanager.getTransaction().commit();
 		entitymanager.close();
 		emfactory.close();
 	}
-
 	
 	
-	public User getObjectByEmail(String email) {
+	public Librarian getLibObjectByEmail(String email) {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("275_lab2");
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
-		User user = new User();
+		Librarian lib = new Librarian();
 		String userid = null;
 		try{
-		userid = entitymanager.createQuery("SELECT u.userid FROM User u WHERE u.email ='" + email + "'")
+		userid = entitymanager.createQuery("SELECT u.userid FROM Librarian u WHERE u.email ='" + email + "'")
 				.getSingleResult().toString();
-		
+		System.out.println(userid+"libid");
 		if (userid == null)
 			return null;
-		user = entitymanager.find(User.class, userid);
-		if (user == null)
+		lib = entitymanager.find(Librarian.class, userid);
+		System.out.println("lib obj"+lib.getEmail());
+		if (lib == null)
 			return null;
-		entitymanager.persist(user);
+		entitymanager.persist(lib);
 		entitymanager.getTransaction().commit();
 		entitymanager.close();
 		emfactory.close();
-
-		return user;
+		System.out.println("lib obj2"+lib.getEmail());
+		return lib;
 		}catch(NoResultException e) {
 	        return null;
 	    }
@@ -118,52 +119,5 @@ public class CreateUser {
 		emfactory.close();
 	}
 
-	// public void deleteObjectById(String userId) {
-	// // TODO Auto-generated method stub
-	// This method is called by User Controller for Deleting User Details from
-	// Database
-	// EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(
-	// "275_lab2" );
-	// EntityManager entitymanager = emfactory.createEntityManager( );
-	// entitymanager.getTransaction( ).begin( );
-	//
-	// User user = new User();
-	//
-	// user = entitymanager.find(User.class, userId);
-	//
-	// List<Phone> phone = user.getPhones();
-	// for(Phone p : phone)
-	// {
-	// Phone pId = entitymanager.find(Phone.class, p.getId());
-	// pId.getUser().remove(user);
-	// }
-	//
-	// //address = entitymanager.find(Address.class);
-	//
-	//// entitymanager.getTransaction().begin();
-	// entitymanager.remove(user);
-	// //entitymanager.remove(address);
-	// entitymanager.getTransaction().commit();
-	// entitymanager.close();
-	//
-	// }
-	//
-	// public User getJsonById(String userid) {
-	// // TODO Auto-generated method stub
-	// System.out.println("i am in dao");
-	// EntityManagerFactory emfactory = Persistence.createEntityManagerFactory(
-	// "275_lab2" );
-	// EntityManager entitymanager = emfactory.createEntityManager( );
-	// entitymanager.getTransaction( ).begin( );
-	//
-	// System.out.println("user id"+userid);
-	// User user = entitymanager.find(User.class, userid);
-	// System.out.println("user object"+ user);
-	// entitymanager.persist( user );
-	// entitymanager.getTransaction( ).commit( );
-	// entitymanager.close( );
-	// emfactory.close( );
-	// return user;
-	//
-	// }
+
 }
