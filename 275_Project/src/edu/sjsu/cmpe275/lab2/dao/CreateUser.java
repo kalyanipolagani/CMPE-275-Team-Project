@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import javax.persistence.RollbackException;
 
 import edu.sjsu.cmpe275.lab2.model.Book;
 import edu.sjsu.cmpe275.lab2.model.User;
@@ -15,17 +16,18 @@ import org.json.simple.*;
 
 public class CreateUser {
 
-	public void insertUser(String firstName, String lastName, String email, String password, String univid,
+	public String insertUser(String firstName, String lastName, String email, String password, String univid,
 			String uniquecode) {
 		// TODO Auto-generated method stub
 		// entitymanager instance associated with persistence context
 		// This method is called by User Controller for inserting User Details
 		// into Database
-		System.out.println("cufn1" + firstName);
+		try{
+		
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("275_lab2");
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		System.out.println("cufn2c" + lastName);
+		
 
 		User user = new User();
 
@@ -36,12 +38,16 @@ public class CreateUser {
 		user.setUnivid(univid);
 		user.setUniquecode(uniquecode);
 
-		System.out.println("cufn" + email);
+		
 
 		entitymanager.persist(user);
 		entitymanager.getTransaction().commit();
 		entitymanager.close();
 		emfactory.close();
+		return "Success";
+		}catch(RollbackException e) {
+	        return"Failure";
+	    }
 	}
 
 	
@@ -78,6 +84,7 @@ public class CreateUser {
 		// This method is called by User Controller for getting User Details
 		// from Database
 
+		try{
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("275_lab2");
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
@@ -92,6 +99,10 @@ public class CreateUser {
 		entitymanager.close();
 		emfactory.close();
 		return user;
+		
+		}catch(NoResultException e) {
+	        return null;
+	    }
 
 	}
 

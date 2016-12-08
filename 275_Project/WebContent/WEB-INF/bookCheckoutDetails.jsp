@@ -8,27 +8,33 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Book Checkout Details</h1>
+<%-- <h1>Book Checkout Details</h1>
 Author ${book.author}
 Title ${book.title}
 Publisher ${book.publisher}
 Year ${book.year}
-Location ${book.location}
-<form action="/275_lab2/bookCheckout" method="post">
+Location ${book.location} --%>
+<%-- <form action="/275_lab2/bookCheckout" method="post">
  <c:if test="${book.copies != 0}">
  	<button type="submit" value = "checkoutBook">Checkout</button>
- 	<%-- <input type = "hidden" id="bookid" name = "bookid" value ="${book.bookid}"> --%>
+ 	<input type = "hidden" id="bookid" name = "bookid" value ="${book.bookid}">
  </c:if>
- </form>
+ </form> --%>
  
-  <form action="/275_lab2/addBooks" method="post">
+<%--   <form action="/275_lab2/addBooks" method="post">
  <c:if test="${book.copies != 0}">
  	<button type="submit" value = "checkoutBook">Add Books</button>
  	<input type = "hidden" id="bookid" name = "bookid" value ="${book.bookid}">
  </c:if>
- </form>
+ </form> --%>
  
+<p>DueDate </p>
+<p>${dueDate} </p>
  
+<form action = "/275_lab2/book/searchBook" method = "get">
+<input type = "hidden" id="userid" name = "userid" value = "${user.userid}">
+<button type="submit" class="btn btn-default">Back</button>
+</form>
  
 </body>
 </html>

@@ -76,6 +76,9 @@
 						<c:if test="${newbook.copies != 0}">
  						<button type="submit" value = "addBook">Add Book</button>
  						</c:if>
+ 						</form>
+ 						<form action="/275_lab2/book/searchBook" method="get">
+ 					<input type = "hidden" id="userid" name = "userid" value = "${userid}">
  						<button type="submit" value = "back">Back</button>
 					</form>
 				</div>

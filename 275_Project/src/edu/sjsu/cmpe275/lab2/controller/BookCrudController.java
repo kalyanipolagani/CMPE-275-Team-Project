@@ -2,6 +2,8 @@ package edu.sjsu.cmpe275.lab2.controller;
 
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +31,8 @@ import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 import edu.sjsu.cmpe275.lab2.dao.BookCheckout;
 import edu.sjsu.cmpe275.lab2.dao.BookDetails;
+import edu.sjsu.cmpe275.lab2.dao.CreateUser;
+import edu.sjsu.cmpe275.lab2.email.ActivationEmail;
 import edu.sjsu.cmpe275.lab2.model.Book;
 //import edu.sjsu.cmpe275.lab2.dao.CreateUser;
 import edu.sjsu.cmpe275.lab2.model.User;
@@ -36,6 +40,8 @@ import edu.sjsu.cmpe275.lab2.model.User;
 
 @Controller
 public class BookCrudController {
+	 User user = new User();
+	 Book book = new Book();
 
 /*
  * Create book
@@ -50,31 +56,49 @@ public ModelAndView createUser(){
 @RequestMapping(value = "book/addBookstoPatron", method = RequestMethod.POST )
 public ModelAndView addBookstoPatron(@RequestParam("userid") String userid,
 									  @RequestParam("bookid") String bookid){
+	
+	user = new User();
 	BookCheckout bC = new BookCheckout();
+	CreateUser cu = new CreateUser();
+	BookDetails bu = new BookDetails();
+	user = cu.getObjectById(userid);
+	book = bu.getBookById(bookid);
+	LocalDateTime timePoint = LocalDateTime.now();
+	String time=timePoint.toString();
+	LocalDate theDate = timePoint.toLocalDate();
+	String currentDate = theDate.toString();
+	LocalDate dueDate = timePoint.toLocalDate().plusDays(30);
+	String dueDateConversion = dueDate.toString();
+	
 	System.out.println("addBookstoPatron"+bookid);
-	bC.addBooksToPatron(userid, bookid);
+	// bC.addBooksToPatron(userid, bookid);
 	User user = bC.getUserById(userid);
-	//String condition = bC.addBooksToPatron(userid, bookid);
-	/*if (condition == "bookLimitReached")
+	String condition = bC.addBooksToPatron(userid, bookid);
+	if (condition == "bookLimitReached")
 	{
 		ModelAndView model = new ModelAndView("BLR");
-		String value = "Book Limit Reached";
+		String value = "Book Limit Reached. You cannot checkout any more books, until you return atleast one book back to the library";
 		model.addObject("limitReached", value);
+		model.addObject(user);
 		return model;
 	}
-	else if(condition == "bookLimitReachedForTheDay")
+	else if(condition.equals("bookLimitReachedForTheDay"))
 	{
 		ModelAndView model = new ModelAndView("BLR");
-		String value = "Book Limit Reached For The Day";
+		String value = "Book Limit Reached For The Day. You cannot checkout any more books for today. Please do checkout tomorrow";
 		model.addObject("limitReached", value);
+		model.addObject(user);
 		return model;
 	}
 	else
-	{*/
-		ModelAndView model = new ModelAndView("searchBook");
+	{
+		ModelAndView model = new ModelAndView("bookCheckoutDetails");
 		model.addObject(user);
+		model.addObject("dueDate", dueDateConversion);
+		ActivationEmail.emailCheckout(user.getFirstName() + " " + user.getLastName(), user.getEmail(),"Book Id  "+ book.getBookid()+ "  " + "Author  "+ book.getAuthor()+ "  " +"Title  "+book.getTitle()+ "  "+ "Publisher  "+book.getPublisher()+ "  "+ "CheckOut Date  " +time+ "  "+ "Due Date  "+dueDateConversion);
 		return model;
-	/*}*/
+		
+	}
 	}
 
 BookDetails b = new BookDetails();
@@ -154,8 +178,12 @@ public String deleteBook(@PathVariable("bookid")  String bookid){
  * Search the Book details based on title
  */
 @RequestMapping(value = "book/searchBook", method = RequestMethod.GET )
-public ModelAndView searchBook(){
+public ModelAndView searchBook(@RequestParam("userid")String userid){
 	ModelAndView model = new ModelAndView("searchBook");
+	CreateUser cu = new CreateUser();
+	user = new User();
+	user = cu.getObjectById(userid);
+	model.addObject(user);
 	System.out.println("searchbook get");
 	return model;
 	}
@@ -166,24 +194,27 @@ public ModelAndView searchBook(){
 public ModelAndView searchBooks(@RequestParam("title")String title,
 								@RequestParam("userid")String userid)	
 {		System.out.println("In cintroller " +title);
+		System.out.println("userid"+userid);
 		Book newbook =new Book();
 		newbook=b.getBookByTitle(title);
-		System.out.println("In controller Nwbook " +newbook.getTitle());
-		
 
-		ModelAndView model = new ModelAndView("addBookToCart");
+		if (newbook !=null)
+		{
+			ModelAndView model = new ModelAndView("addBookToCart");
 
-		model.addObject("newbook", newbook);
-		model.addObject("userid",userid);
-		System.out.println("i am booksearch post"+userid);
-		System.out.println("In cintroller 22 Nwbook " +newbook.getPublisher());
+			model.addObject("newbook", newbook);
+			model.addObject("userid",userid);
+			System.out.println("i am booksearch post"+userid);
+			System.out.println("In cintroller 22 Nwbook " +newbook.getPublisher());
+			return model;
+			
+		}
+		ModelAndView model = new ModelAndView("errormail");
 		return model;
-		
-	
-}
 }
 
 
+}
 
 
 

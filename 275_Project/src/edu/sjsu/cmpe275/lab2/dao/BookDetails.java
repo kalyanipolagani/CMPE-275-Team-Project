@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
@@ -93,7 +94,8 @@ public class BookDetails {
 		
 		//Search Book by TITLE
 		public Book getBookByTitle(String title) {
-				System.out.println("In DAO ");  
+				System.out.println("In DAO "); 
+				try{
 				EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "275_lab2" );
 			    EntityManager entitymanager = emfactory.createEntityManager( );
 			    entitymanager.getTransaction( ).begin( );
@@ -109,6 +111,9 @@ public class BookDetails {
 			    entitymanager.close( );
 			    emfactory.close( );
 			    return book;
+				}catch(NoResultException e) {
+			        return null;
+			    }
 
 			}
 		

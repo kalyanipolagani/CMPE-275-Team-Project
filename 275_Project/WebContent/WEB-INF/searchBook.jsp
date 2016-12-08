@@ -33,7 +33,7 @@
   							<label for="title">Enter the title of the Book</label>
   							<input type="text" class="form-control" id="title" name="title">
 						</div>
-						<input type="text" id = "userid" name="userid" value="${user.userid}" />
+						<input type="text" id = "userid" name="userid" value="${user.userid}" hidden/>
 						<button type="submit" class="btn btn-default">Search</button>
 					</form>
 				</div>

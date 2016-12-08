@@ -32,7 +32,7 @@ public class UsersController {
 	CreateUser cu = new CreateUser();
 	CreateLibrarian cl= new CreateLibrarian();
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView user() {
 		ModelAndView model = new ModelAndView("login");
 		return model;
@@ -110,7 +110,7 @@ public class UsersController {
 					univ=univid;
 				}
 				else{
-					return "/error1"; //validate univid
+					return "/errorunivid"; //validate univid
 				}
 				type = "librarian";
 				lib.setFirstName(fName);
@@ -129,7 +129,7 @@ public class UsersController {
 					univ=univid;
 				}
 				else{
-					return "/error1"; //validate univid
+					return "/errorunivid"; //validate univid
 				}
 				user.setFirstName(fName);
 				user.setLastName(lName);
@@ -157,24 +157,36 @@ public class UsersController {
 			System.out.println("usr  "+user.getUniquecode());
 			
 			if (token != null && token.equals(user.getUniquecode())) {
-					cu.insertUser(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(),
+				String msg = null;
+					msg=cu.insertUser(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(),
 							user.getUnivid(), user.getUniquecode());
+					if(msg=="Success"){
 					ActivationEmail.emailAckTrigger(user.getFirstName() + " " + user.getLastName(), user.getEmail(),
 							"You Have Succesfully Created an Account");
 					return "/login";
+					}
+					else{
+						return "errormailreg";
+					}
 
 				
 				}else if(token != null && token.equals(lib.getUniquecode())){
-					cl.insertLibrarian(lib.getFirstName(), lib.getLastName(), lib.getEmail(), lib.getPassword(),
+					String msg = null;
+					msg=cl.insertLibrarian(lib.getFirstName(), lib.getLastName(), lib.getEmail(), lib.getPassword(),
 							lib.getUnivid(), lib.getUniquecode());
+					if(msg=="Success"){
 					ActivationEmail.emailAckTrigger(lib.getFirstName() + " " + lib.getLastName(), lib.getEmail(),
 							"You Have Succesfully Created an Account");
 					return "/login";
+					}
+					else{
+						return "errormailreg";
+					}
 				}
 	return null;
 			} else {
 				System.out.println("Not a match");
-				return "/error1";
+				return "/errortoken";
 			}
 		
 	}
